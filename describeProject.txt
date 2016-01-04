@@ -1,0 +1,16 @@
+Classes:
+
+Board:
+variable: 
+boolean victory? #Checks for someone to win
+
+method: 
+new #creates empty board
+
+
+Player:
+variable: 
+char inputLetter #For example: 'x' or 'o'
+
+method:
+new(input) #input would be the inputLetter
