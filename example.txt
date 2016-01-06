@@ -1,35 +1,28 @@
 How the tic-tac-toe program will run
 
 played = false
-$play = true
+play = true
 
-while $play 
-	puts played? "Ready?! Player 1(X), Player 2(O)?" : "Again!? #Depending on how many times they've played"
+while play 
+	puts played? "Ready?! Player 1(X), Player 2(O)?" : "Again!?" #if played before
 	>input
 	
 	board = Board.new
 	players = []
-	player << Player.new
-	player << Player.new
+	players << Player.new
+	players << Player.new
 	
-		until victory is acheived
-			board.display #Show the grid/board
-			
-			
-			Player 1(X), select position:
-			>input
-			
-			(add the input to the board)
-			
-			board.display #show the grid/board
-
-			Player 2(O), Select position: 
-			>input
-
-			(add the input to the board)
-
-			(Display)
-			...
+		until board.victory? is acheived
+			loop between players
+				board.display #Show the grid/board
+				
+				Player 1(X), select position: #Accepting input like A1, or C2
+				>input
+				
+				player.add(board, input)
+				
+				board.check_victory #if successful, flag for victory?
+			end
 		end
 		
 	(call out the victor)
