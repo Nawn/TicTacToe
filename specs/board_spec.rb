@@ -9,8 +9,20 @@ describe Board do
   end
   
   describe "#new" do    
-    it "creates an empty board" do
-      expect(@board.table).to eql(@empty_table)
+    context "When given no arguments" do
+      it "creates an empty board" do
+        expect(@board.table).to eql(@empty_table)
+      end
+    end
+    
+    context "When given a hash with values" do
+      it "creates a filled board if values match criterea" do
+        
+      end
+      
+      it "returns an error if values do not match criterea"
+        
+      end
     end
   end
   
