@@ -2,13 +2,11 @@ require 'terminal-table'
 
 class Board
 @@new_game = {:a => {1 => nil, 2 => nil, 3 => nil}, :b => {1 => nil, 2 => nil, 3 => nil}, :c => {1 => nil, 2 => nil, 3 => nil}}
-
+attr_reader :rows
   def initialize (input_rows=@@new_game)
     @rows =  input_rows #use class default if none set.
     
     build
-    
-    self.display
   end  
   
   def display
