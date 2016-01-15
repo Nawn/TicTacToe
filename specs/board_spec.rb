@@ -31,6 +31,14 @@ describe Board do
         expect(@board.input("O", 3)).to raise_error
       end
     end
+	
+    context "when given a spot that does not exist" do
+      it "raises an error" do
+        expect(@board.input("O", "B7")).to raise_error
+        expect(@board.input("O", "A4")).to raise_error
+        expect(@board.input("O", "D2")).to raise_error
+      end
+    end
     
     context "when given an empty spot" do
       it "will attach the given inputLetter to the appropriate spot" do
@@ -58,7 +66,21 @@ describe Board do
     end
   end
   
-  describe "#done?" do
+  describe "#add_player" do
+    context "when given no input" do
+      it "raises an error" do
+        expect(@board.add_player()).to raise_error
+      end
+    end
+    
+    context "when given incorrect input" do #decide what is "incorrect"/correct
+      it "raises an error" do
+        
+      end
+    end
+  end
+  
+  describe "#check_victory/#done?" do
     context "when there are no lines done" do
       
     end
