@@ -1,10 +1,12 @@
 require 'terminal-table'
+require_relative 'player.rb'
 
 class Board
 @@new_game = {:a => {1 => nil, 2 => nil, 3 => nil}, :b => {1 => nil, 2 => nil, 3 => nil}, :c => {1 => nil, 2 => nil, 3 => nil}}
-attr_reader :rows
+attr_reader :rows, :players
   def initialize (input_rows=@@new_game)
     @rows =  input_rows #use class default if none set.
+    @players = [Player.new("X"), Player.new("O")]
     
     build
   end  

@@ -2,7 +2,7 @@ require_relative 'spec_helper'
 
 describe Player do
   describe "#new" do
-    before(:all) do
+    before(:each) do
       @player = Player.new ("X")
     end
     
@@ -23,4 +23,23 @@ describe Player do
       end
     end
   end
-end
+  
+  describe "#add_point" do
+    context "when given no input" do
+      it "increments points by one" do
+        @player.add_point
+        expect(@player.points).to eql(1)
+        @player.add_point
+        expect(@player.points).to eql(2)
+      end
+    end
+    
+    context "when given an input" do
+      it "will increment by input"
+        @player.add_point(2)
+        expect(@player.points).to eql(2)
+        @player.add_point(2)
+        expect(@player.points).to eql(4)
+      end
+    end
+  end
