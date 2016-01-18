@@ -13,6 +13,14 @@ describe Board do
         expect(@board.rows).to eql(@empty_rows)
       end
     end
+    
+    context "when given an argument" do
+      it "will keep that table" do
+        temp_rows = {:a => {1 => nil, 2 => nil, 3 => nil}, :b => {1 => "X", 2 => "X", 3 => "O"}, :c => {1 => "X", 2 => nil, 3 => "O"}}
+        @board = Board.new (temp_rows)
+        expect(@board.rows).to eql(temp_rows)
+      end
+    end
   end
   
   describe "#input" do
@@ -59,7 +67,6 @@ describe Board do
     
     context "when given a used block" do
       it "will raise an error" do
-        @board = Board.new
         @board.input("X", "C2")
         expect(@board.input("O", "C2")).to raise_error
       end
@@ -89,7 +96,6 @@ describe Board do
       it "returns true on both, because there's a victor and therefore, cannot continue" do
         winning_board = {:a => {1 => "O", 2 => nil, 3 => "X"}, :b => {1 => nil, 2 => "X", 3 => "X"}, :c => {1 => "O", 2 => "O", 3 => "X"}}
         @board = Board.new(winning_board)
-        @board.check
         expect(@board.check).to be true
         expect(@board.done?).to be true
       end
