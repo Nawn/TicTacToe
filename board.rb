@@ -11,6 +11,10 @@ attr_reader :rows, :players
     build
   end  
   
+  def input (input_letter, board_space)
+    
+  end
+  
   def display
     puts @table
   end
