@@ -55,13 +55,14 @@ describe Board do
       end
       
       it "will add more if you keep adding" do
-        @board = Board.new
-        @board.input("X", "A1")
-        @board.input("O", "B3")
-        @board.input("X", "C2")
-        @board.input("O", "A3")
+      
+        trial = Board.new
+        trial.input("X", "A1")
+        trial.input("O", "B3")
+        trial.input("X", "C2")
+        trial.input("O", "A3")
         
-        expect(@board.rows).to eql({:a=>{1=>"X", 2=>nil, 3=>"O"}, :b=>{1=>nil, 2=>nil, 3=>"O"}, :c=>{1=>nil, 2=>"X", 3=>nil}})
+        expect(trial.rows).to eql({:a=>{1=>"X", 2=>nil, 3=>"O"}, :b=>{1=>nil, 2=>nil, 3=>"O"}, :c=>{1=>nil, 2=>"X", 3=>nil}})
       end
     end
     

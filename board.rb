@@ -13,13 +13,16 @@ attr_reader :rows, :players
   
   def input (input_letter=nil, board_space=nil)
     raise ArgumentError, "require 2 inputs" if (input_letter.nil? || board_space.nil?) #if inputs are empty
-    raise ArgumentError, "incorrect input" if (input_letter !~ /^\w/ || board_space !~ /^\w\d/)    
+    raise ArgumentError, "incorrect input" if (input_letter !~ /^\w$/ || board_space !~ /^[a-zA-Z]\d$/)    
     raise ArgumentError, "does not exist" unless check_exist?(board_space)
     
-    
+    spot = board_space.split("")
+    @rows[spot[0].downcase.to_sym][spot[1].to_i] ||= input_letter
+    display
   end
   
   def display
+    build
     puts @table
   end
   
@@ -42,7 +45,6 @@ attr_reader :rows, :players
   end
     
   @table = Terminal::Table.new :headings => ['0-0', 1, 2, 3], :rows => table_array #Create the table
-  
   end 
   
   def check_exist?(input_board_space)
