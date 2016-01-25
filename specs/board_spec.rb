@@ -23,28 +23,28 @@ describe Board do
     end
   end
   
-  describe "#input" do
+  describe "#input", :focus => true do
     context "when given incorrect # of arguments" do
       it "raises errror" do
-        expect(@board.input()).to raise_error
-        expect(@board.input("Top one")).to raise_error
-        expect(@board.input(" ")).to raise_error
-        expect(@board.input("O")).to raise_error
+        expect{@board.input()}.to raise_error
+        expect{@board.input("Top one")}.to raise_error
+        expect{@board.input(" ")}.to raise_error
+        expect{@board.input("O")}.to raise_error
       end
     end
     
     context "when given wrong arguments" do
       it "raises errors" do
-        expect(@board.input("X", "pipi")).to raise_error
-        expect(@board.input("O", 3)).to raise_error
+        expect{@board.input("X", "pipi")}.to raise_error
+        expect{@board.input("O", 3)}.to raise_error
       end
     end
 	
     context "when given a spot that does not exist" do
       it "raises an error" do
-        expect(@board.input("O", "B7")).to raise_error
-        expect(@board.input("O", "A4")).to raise_error
-        expect(@board.input("O", "D2")).to raise_error
+        expect{@board.input("O", "B7")}.to raise_error
+        expect{@board.input("O", "A4")}.to raise_error
+        expect{@board.input("O", "D2")}.to raise_error
       end
     end
     
@@ -68,7 +68,7 @@ describe Board do
     context "when given a used block" do
       it "will raise an error" do
         @board.input("X", "C2")
-        expect(@board.input("O", "C2")).to raise_error
+        expect{@board.input("O", "C2")}.to raise_error
       end
     end
   end

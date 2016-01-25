@@ -11,8 +11,8 @@ attr_reader :rows, :players
     build
   end  
   
-  def input (input_letter, board_space)
-    
+  def input (input_letter=nil, board_space=nil)
+    raise ArgumentError, "require both inputs" if (input_letter.nil? || board_space.nil?)
   end
   
   def display
