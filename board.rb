@@ -14,7 +14,7 @@ attr_reader :rows, :players
     raise ArgumentError, "require 2 inputs" if (input_letter.nil? || board_space.nil?) #if inputs are empty
     raise ArgumentError, "incorrect input" if (input_letter !~ /^\w$/ || board_space !~ /^[a-zA-Z]\d$/)    
     raise ArgumentError, "does not exist" unless check_exist?(board_space)
-    raise ArgumentError, "slot in use" if check_conflict?(board_space)
+    raise StandardError, "slot in use" if check_conflict?(board_space)
     
     spot = board_space.split("")
     @rows[spot[0].downcase.to_sym][spot[1].to_i] ||= input_letter

@@ -26,25 +26,25 @@ describe Board do
   describe "#input", :focus => true do
     context "when given incorrect # of arguments" do
       it "raises errror" do
-        expect{@board.input()}.to raise_error
-        expect{@board.input("Top one")}.to raise_error
-        expect{@board.input(" ")}.to raise_error
-        expect{@board.input("O")}.to raise_error
+        expect{@board.input()}.to raise_error(ArgumentError)
+        expect{@board.input("Top one")}.to raise_error(ArgumentError)
+        expect{@board.input(" ")}.to raise_error(ArgumentError)
+        expect{@board.input("O")}.to raise_error(ArgumentError)
       end
     end
     
     context "when given wrong arguments" do
       it "raises errors" do
-        expect{@board.input("X", "pipi")}.to raise_error
-        expect{@board.input("O", 3)}.to raise_error
+        expect{@board.input("X", "pipi")}.to raise_error(ArgumentError)
+        expect{@board.input("O", 3)}.to raise_error(ArgumentError)
       end
     end
 	
     context "when given a spot that does not exist" do
       it "raises an error" do
-        expect{@board.input("O", "B7")}.to raise_error
-        expect{@board.input("O", "A4")}.to raise_error
-        expect{@board.input("O", "D2")}.to raise_error
+        expect{@board.input("O", "B7")}.to raise_error(ArgumentError)
+        expect{@board.input("O", "A4")}.to raise_error(ArgumentError)
+        expect{@board.input("O", "D2")}.to raise_error(ArgumentError)
       end
     end
     
@@ -55,21 +55,19 @@ describe Board do
       end
       
       it "will add more if you keep adding" do
-      
-        trial = Board.new
-        trial.input("X", "A1")
-        trial.input("O", "B3")
-        trial.input("X", "C2")
-        trial.input("O", "A3")
+        @board.input("X", "A1")
+        @board.input("O", "B3")
+        @board.input("X", "C2")
+        @board.input("O", "A3")
         
-        expect(trial.rows).to eql({:a=>{1=>"X", 2=>nil, 3=>"O"}, :b=>{1=>nil, 2=>nil, 3=>"O"}, :c=>{1=>nil, 2=>"X", 3=>nil}})
+        expect(@board.rows).to eql({:a=>{1=>"X", 2=>nil, 3=>"O"}, :b=>{1=>nil, 2=>nil, 3=>"O"}, :c=>{1=>nil, 2=>"X", 3=>nil}})
       end
     end
     
     context "when given a used block" do
       it "will raise an error" do
         @board.input("X", "C2")
-        expect{@board.input("O", "C2")}.to raise_error
+        expect{@board.input("O", "C2")}.to raise_error(StandardError)
       end
     end
   end
