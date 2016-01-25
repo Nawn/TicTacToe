@@ -2,9 +2,8 @@ require 'terminal-table'
 require_relative 'player.rb'
 
 class Board
-@@new_game = {:a => {1 => nil, 2 => nil, 3 => nil}, :b => {1 => nil, 2 => nil, 3 => nil}, :c => {1 => nil, 2 => nil, 3 => nil}}
 attr_reader :rows, :players
-  def initialize (input_rows=@@new_game)
+  def initialize (input_rows={:a => {1 => nil, 2 => nil, 3 => nil}, :b => {1 => nil, 2 => nil, 3 => nil}, :c => {1 => nil, 2 => nil, 3 => nil}})
     @rows =  input_rows #use class default if none set.
     @players = [Player.new("X"), Player.new("O")]
     
@@ -15,6 +14,7 @@ attr_reader :rows, :players
     raise ArgumentError, "require 2 inputs" if (input_letter.nil? || board_space.nil?) #if inputs are empty
     raise ArgumentError, "incorrect input" if (input_letter !~ /^\w$/ || board_space !~ /^[a-zA-Z]\d$/)    
     raise ArgumentError, "does not exist" unless check_exist?(board_space)
+    raise ArgumentError, "slot in use" if check_conflict?(board_space)
     
     spot = board_space.split("")
     @rows[spot[0].downcase.to_sym][spot[1].to_i] ||= input_letter
@@ -46,6 +46,14 @@ attr_reader :rows, :players
     
   @table = Terminal::Table.new :headings => ['0-0', 1, 2, 3], :rows => table_array #Create the table
   end 
+  
+  def check_conflict?(input_board_space)
+    position = input_board_space.split("")
+    
+    return false if @rows[position[0].downcase.to_sym][position[1].to_i].nil?
+    
+    true
+  end
   
   def check_exist?(input_board_space)
     position = input_board_space.split("") #separate the letter and number for the grid.
