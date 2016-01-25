@@ -12,8 +12,11 @@ attr_reader :rows, :players
   end  
   
   def input (input_letter=nil, board_space=nil)
-    raise ArgumentError, "require 2 inputs" if (input_letter.nil? || board_space.nil?)
-    raise ArgumentError, "incorrect input" if (input_letter != /^\w/ || board_space != /^\w\d/)
+    raise ArgumentError, "require 2 inputs" if (input_letter.nil? || board_space.nil?) #if inputs are empty
+    raise ArgumentError, "incorrect input" if (input_letter !~ /^\w/ || board_space !~ /^\w\d/)    
+    raise ArgumentError, "does not exist" unless check_exist?(board_space)
+    
+    
   end
   
   def display
@@ -41,4 +44,14 @@ attr_reader :rows, :players
   @table = Terminal::Table.new :headings => ['0-0', 1, 2, 3], :rows => table_array #Create the table
   
   end 
+  
+  def check_exist?(input_board_space)
+    position = input_board_space.split("") #separate the letter and number for the grid.
+    correct_letters = ["a", "b", "c"]
+    correct_numbers = [1, 2, 3]
+    
+    return true if correct_letters.any? {|letter| letter == position[0].downcase} && correct_numbers.any? {|number| number == position[1].to_i}
+    
+    false
+  end
 end
