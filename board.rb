@@ -58,20 +58,42 @@ attr_reader :rows, :players
   def check_victory
     diagonals = [ [ @rows[:a][1], @rows[:b][2], @rows[:c][3] ], [ @rows[:a][3], @rows [:b][2], @rows[:c][1] ] ]
     
-    rows_match? || diagonals_match? #if any rows contain matching lines, or if any diagonals contain. that will flag true if a victory has been acheived. 
+    check_lines? || diagonals_match? #if any rows contain matching lines, or if any diagonals contain. that will flag true if a victory has been acheived. 
   end
   
-  def rows_match?
-    rows_match = @rows.any? do |letter, row|
-      row.all? do |number, value|
+  def check_lines?    
+    check_rows || check_columns
+  end
+  
+  def check_columns
+    columns_array = [] #declare the array of columns
+    column = [] #empty column
+    @rows[:a].each_key do |column_number| #for each number (1,2,3)
+      @rows.each_key do |letter| #loop through the letters
+        column << @rows[letter][column_number] #and push the values of that column
+      end
+      columns_array << column #add to list of columns to check
+      column = []
+    end
+    
+    columns_array.any? do |column| #any of the grabbed Columns
+      column.all? do |value| #contain all the same value? if so, return true
+        value == column[0]
+      end
+    end
+  end
+  
+  def check_rows
+    @rows.any? do |letter, row| #any row
+      row.all? do |number, value| #whose values are all the same?
         value == row[1]
       end
     end
-    
-    columns_match = nil
   end
   
-  def diagonals_match?; end
+  def diagonals_match?
+    
+  end
   
   def any_room_left? #true if any spot is Nil.
     @rows.any? do |letter, row| #in our rows
