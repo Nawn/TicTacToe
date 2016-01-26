@@ -61,7 +61,15 @@ attr_reader :rows, :players
     rows_match? || diagonals_match? #if any rows contain matching lines, or if any diagonals contain. that will flag true if a victory has been acheived. 
   end
   
-  def rows_match?; end
+  def rows_match?
+    rows_match = @rows.any? do |letter, row|
+      row.all? do |number, value|
+        value == row[1]
+      end
+    end
+    
+    columns_match = nil
+  end
   
   def diagonals_match?; end
   
