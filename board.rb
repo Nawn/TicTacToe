@@ -6,9 +6,14 @@ attr_reader :rows, :players
   def initialize (input_rows={:a => {1 => nil, 2 => nil, 3 => nil}, :b => {1 => nil, 2 => nil, 3 => nil}, :c => {1 => nil, 2 => nil, 3 => nil}})
     @rows =  input_rows #use class default if none set.
     @players = [Player.new("X"), Player.new("O")]
+    @done = false
     
     build
   end  
+  
+  def done?
+    @done
+  end
   
   def input (input_letter=nil, board_space=nil)
     raise ArgumentError, "require 2 inputs" if (input_letter.nil? || board_space.nil?) #if inputs are empty
@@ -27,7 +32,9 @@ attr_reader :rows, :players
   end
   
   def check
+    diagonals = [ [ @rows[:a][1], @rows[:b][2], @rows[:c][3] ], [ @rows[:a][3], @rows [:b][2], @rows[:c][1] ] ]
     
+    false
   end
   
   private
