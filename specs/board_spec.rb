@@ -72,7 +72,7 @@ describe Board do
     end
   end
   
-  describe "#check_victory/#done?" do #check will return true if you won the round, wheras done will return true if there Has been a factory/tie
+  describe "#check" do #check will return true if you won the round, wheras done will return true if there Has been a factory/tie
     context "when there are no lines done" do
       it "will return false on check, & false on done" do
         unfinished_board = {:a => {1 => nil, 2 => nil, 3 => nil}, :b => {1 => "X", 2 => "X", 3 => "O"}, :c => {1 => "X", 2 => nil, 3 => "O"}}

@@ -32,31 +32,42 @@ attr_reader :rows, :players
   end
   
   def check
-    diagonals = [ [ @rows[:a][1], @rows[:b][2], @rows[:c][3] ], [ @rows[:a][3], @rows [:b][2], @rows[:c][1] ] ]
+    @done = true unless any_room_left? && !check_victory #We are done, unless there's room left and no one has won.
     
-    false
+    check_victory
   end
   
   private
   def build
-  
-  header_array = [] #create the array that describes the header
-  table_array = [] #create the array that will be used to make the table
-  
-  @rows.each_with_index do |(row_letter, row), index| #for each Row
-  
-    temp_row = [row_letter.to_s.upcase] #Set the row letter to show as first item
+    header_array = [] #create the array that describes the header
+    table_array = [] #create the array that will be used to make the table
     
-    row.each do |row_key, row_value| #for each item in the row
-      temp_row << row_value #add it after the letter
+    @rows.each_with_index do |(row_letter, row), index| #for each Row
+      temp_row = [row_letter.to_s.upcase] #Set the row letter to show as first item
+      
+      row.each do |row_key, row_value| #for each item in the row
+        temp_row << row_value #add it after the letter
+      end
+      
+      table_array << temp_row #add the row to the collection
+      table_array << :separator unless (index == @rows.size - 1) #add a separator, unless it's the last one
     end
     
-    table_array << temp_row #add the row to the collection
-    table_array << :separator unless (index == @rows.size - 1) #add a separator, unless it's the last one
-  end
-    
-  @table = Terminal::Table.new :headings => ['0-0', 1, 2, 3], :rows => table_array #Create the table
+    @table = Terminal::Table.new :headings => ['0-0', 1, 2, 3], :rows => table_array #Create the table
   end 
+  
+  def check_victory
+    diagonals = [ [ @rows[:a][1], @rows[:b][2], @rows[:c][3] ], [ @rows[:a][3], @rows [:b][2], @rows[:c][1] ] ]
+      
+  end
+  
+  def any_room_left? #true if any spot is Nil.
+    @rows.any? do |letter, row| #in our rows
+      row.any? do |number, value| #any of the rows have an empty square?
+        value.nil?
+      end
+    end
+  end
   
   def check_conflict?(input_board_space)
     position = input_board_space.split("")
