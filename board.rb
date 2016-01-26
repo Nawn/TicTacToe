@@ -26,6 +26,10 @@ attr_reader :rows, :players
     puts @table
   end
   
+  def check
+    
+  end
+  
   private
   def build
   
