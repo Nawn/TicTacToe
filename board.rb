@@ -76,7 +76,7 @@ attr_reader :rows, :players
     
     columns_array.any? do |column| #any of the grabbed Columns
       column.all? do |value| #contain all the same value? if so, return true
-        value == column[0]
+        value == column[0] && !value.nil?
       end
     end
   end
@@ -84,7 +84,7 @@ attr_reader :rows, :players
   def check_rows
     @rows.any? do |letter, row| #any row
       row.all? do |number, value| #whose values are all the same?
-        value == row[1]
+        value == row[1] && !value.nil?
       end
     end
   end
@@ -94,7 +94,7 @@ attr_reader :rows, :players
     
     diagonals.any? do |row|
       row.all? do |value|
-        value == row[0]
+        value == row[0] && !value.nil?
       end
     end
   end
