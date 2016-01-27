@@ -11,6 +11,11 @@ attr_reader :rows, :players
     build
   end  
   
+  def clear
+    @rows = {:a => {1 => nil, 2 => nil, 3 => nil}, :b => {1 => nil, 2 => nil, 3 => nil}, :c => {1 => nil, 2 => nil, 3 => nil}}
+    @done = false
+  end
+  
   def done?
     @done
   end
@@ -52,7 +57,7 @@ attr_reader :rows, :players
       table_array << :separator unless (index == @rows.size - 1) #add a separator, unless it's the last one
     end
     
-    @table = Terminal::Table.new :headings => ['0-0', 1, 2, 3], :rows => table_array #Create the table
+    @table = Terminal::Table.new :headings => ["#{@players[0].points}-#{@players[1].points}", 1, 2, 3], :rows => table_array #Create the table
   end 
   
   def check_victory    
