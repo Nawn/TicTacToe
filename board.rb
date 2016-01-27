@@ -55,9 +55,7 @@ attr_reader :rows, :players
     @table = Terminal::Table.new :headings => ['0-0', 1, 2, 3], :rows => table_array #Create the table
   end 
   
-  def check_victory
-    diagonals = [ [ @rows[:a][1], @rows[:b][2], @rows[:c][3] ], [ @rows[:a][3], @rows [:b][2], @rows[:c][1] ] ]
-    
+  def check_victory    
     check_lines? || diagonals_match? #if any rows contain matching lines, or if any diagonals contain. that will flag true if a victory has been acheived. 
   end
   
@@ -92,7 +90,13 @@ attr_reader :rows, :players
   end
   
   def diagonals_match?
+    diagonals = [ [ @rows[:a][1], @rows[:b][2], @rows[:c][3] ], [ @rows[:a][3], @rows [:b][2], @rows[:c][1] ] ]
     
+    diagonals.any? do |row|
+      row.all? do |value|
+        value == row[0]
+      end
+    end
   end
   
   def any_room_left? #true if any spot is Nil.
