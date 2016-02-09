@@ -19,6 +19,7 @@ while play
       begin
         puts "Player #{index + 1}(#{player.input_letter}), select grid position:"
         player_input = gets.chomp 
+        exit if player_input.downcase == "exit"
         board.input(player.input_letter, player_input)
       rescue ArgumentError => a
         puts "Error: #{a}, please input in format: B2, C1, A3, etc."
