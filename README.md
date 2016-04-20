@@ -4,7 +4,7 @@ For the Odin Project
 
 In order to play this, you will need to have: <br>
 -Ruby installed<br>
--'gem install terminal-table' (For the ASCII board)
+-`gem install terminal-table` (For the ASCII board)
 
 Everything else is hand written. 
 
